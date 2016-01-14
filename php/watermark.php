@@ -19,15 +19,25 @@ $imageQuality = 80; // useless for GIF, usefull for PNG and JPEG (0 to 100%)
 $img_main_path = '/../img/main/ITman.jpg';
 $img_watmark_path = "/../img/watmark/wm3.png";
 $dirout = "/../img";
+
+if(isset($_POST['posx'])) {
+		echo $_POST['posx'];
+		echo $_POST['posy'];
+		echo $_POST['margx'];
+		echo $_POST['margy'];
+		echo $_POST['opacity'];
+		echo $dirout;
+	}
+
 /*$posx = filter_input(INPUT_POST, 'coordx');
 $posy = filter_input(INPUT_POST, 'coordy');
 $padx = filter_input(INPUT_POST, 'marginx');
 $pady = filter_input(INPUT_POST, 'marginy');
 $opacity = filter_input(INPUT_POST, 'opacity') * 100;*/
-$posx = 0;
-$posy = 0;
-$padx = 10;
-$pady = 10;
+$posx = filter_input(INPUT_POST, 'posx');
+$posy = filter_input(INPUT_POST, 'posy');;
+$margx = filter_input(INPUT_POST, 'margx');
+$margy = filter_input(INPUT_POST, 'margy');
 $opacity = filter_input(INPUT_POST, 'opacity') * 100;
 //$mode = filter_input(INPUT_POST, 'mode'); // tile or not
 
@@ -42,11 +52,12 @@ $wtm_width = $wtmpic->getWidth();
 $wtm_height = $wtmpic->getHeight();
 
 // прибавляем отступы к ватермарку
-$wmpic_width += $padx;
-$wmpic_height += $pady;
+$wmpic_width += $margx;
+$wmpic_height += $margy;
 
+$wtmpic->opacity($opacity);
 
-$mainpic->addLayerOnTop($wtmpic, 0, 0);
+$mainpic->addLayerOnTop($wtmpic, $posx, $posy);
 
 
 // Saving the result
@@ -57,6 +68,5 @@ $imageQuality = 95; // useless for GIF, usefull for PNG and JPEG (0 to 100%)
   
 $mainpic->save($dirPath, $result_filename, $createFolders, $backgroundColor, $imageQuality);
 
-echo $bgpic->getWidth();
 
 ?>
