@@ -7,18 +7,11 @@
 	</title>
 </head>
 <body>
-		<form action="" method="post">
-		 <p>Картинка: <input type="file" name="main" value="" /></p>
- 		<p>водяной знак: <input type="file" name="watmark" value="" /></p>	
- 		<div class="buttons">
-			<input type="submit" value="Отправить">
-		</div>
-
+		<form enctype="multipart/form-data" action="/php/test.php" method="post">
+		<input type="hidden" name="MAX_FILE_SIZE" value="3000000">
+		Send this file: <input name="userfile" type="file">
+		<input type="submit" value="Send File">
 		</form>
-
-		<div class="imgbox" style="width:500px; height:500px">
-			<img src="img/result.png" alt="" style="width:100%">
-		</div>
 
 
 		<?php
